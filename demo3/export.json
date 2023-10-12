@@ -1,0 +1,26 @@
+{
+    "objects": [
+        {
+            "query": "SELECT all FROM Account",
+            "operation": "Upsert",
+            "externalId": "Name"
+        },
+        {
+            "query": "SELECT all FROM Opportunity",
+            "operation": "Upsert",
+            "externalId": "ExternalId__c"
+        },
+        {
+            "query": "SELECT all FROM Contact",
+            "operation": "Upsert",
+            "externalId": "LastName;FirstName",
+            "updateWithMockData": true,
+            "mockFields": [
+                {
+                    "name": "Phone",
+                    "pattern": "phone"
+                }
+            ]
+        }
+     ]
+}

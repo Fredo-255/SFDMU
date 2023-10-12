@@ -1,0 +1,37 @@
+{
+    "objects": [
+
+        {
+            "query": "SELECT all FROM Contact",
+            "operation": "Upsert",
+            "externalId": "LastName;FirstName"
+        }
+     ],
+     "dataRetrievedAddons": [
+        {
+            "module": "core:RecordsTransform",
+            "args": {
+                "fields": [
+                    {
+                        "alias":"first",
+                        "sourceObject":"Contact",
+                        "sourceField":"FirstName"
+                    },
+                    {
+                        "alias":"last",
+                        "sourceObject":"Contact",
+                        "sourceField":"LastName"
+                    }
+                ],
+                "transformations": [
+                    {
+                        "targetObject": "Contact",
+                        "targetField":"Email",
+                        "formula": "formula.first.toLowerCase() + '.' + formula.last.toLowerCase() + '@mycompany.com'"
+                    }
+                ]
+            }
+        }
+
+     ]
+}

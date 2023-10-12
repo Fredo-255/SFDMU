@@ -1,18 +1,44 @@
-# Salesforce DX Project: Next Steps
+# SFDMU Demo
+Cette Demo est conçue pour partir d'une org de Demo, avec les comptes de tests pat défaut, alias SFDMU-Prod
+L'org Cible est une Sandbox Dev (ou une scratch) nommée SFDMU-0
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+## Installation de SFDMU
+```
+sfdx plugins:install sfdmu
+```
 
-## How Do You Plan to Deploy Your Changes?
+## Demo 1
+Simple copie des contacts
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+```
+sfdx sfdmu run -p demo1 -s SFDMU-Prod -u SFDMU-0
+```
 
-## Configure Your Salesforce DX Project
+## Demo 2
+Copie Compte, Contacts, Opportunités
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
+Pour les opportunités ajouter préalablement le champ ExternalId__c à la source et à la target (si déjà créée), et l'initialiser sur la source
+````
+sfdx project deploy start -p force-app
+``````
+Nb : cette commande ajoutera également le champ au profil admin
 
-## Read All About It
+On peur ensuite lancer l'import
+```
+sfdx sfdmu run -p demo2 -s SFDMU-Prod -u SFDMU-0
+```
 
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+Noter pour les Contacts qu'il y a un update pour mettre à jour les liens hiéracchiques
+
+## Demo 3
+Anonymisation des numéros de téléphone des contacts
+```
+sfdx sfdmu run -p demo3 -s SFDMU-Prod -u SFDMU-0
+```
+## Demo 4
+Transformation des adresses e-mail
+
+Modification sur la sandbox : 
+```
+sfdx sfdmu run -p demo4 -s SFDMU-0 -u SFDMU-0
+``````
